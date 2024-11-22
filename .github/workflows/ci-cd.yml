@@ -55,6 +55,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+      - name: "Install Angular CLI"
+        run: npm install -g @angular/cli
       - name: "Install dependencies"
         run: npm install
       - name: "Run unit tests"
