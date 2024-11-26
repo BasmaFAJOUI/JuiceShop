@@ -13,6 +13,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -23,10 +24,12 @@ jobs:
 
       - name: Install Snyk CLI
         run: npm install -g snyk # Installation globale de Snyk
-      # Authentifier Snyk
-      - name: Authenticate Snyk
-        run: snyk auth ${{ secrets.SNYK_TOKEN }}
 
-      # Exécuter Snyk DAST
+      - name: Update Snyk CLI
+        run: npm install -g snyk@latest # Mise à jour de Snyk CLI à la dernière version
+
+      - name: Authenticate Snyk
+        run: snyk auth ${{ secrets.SNYK_TOKEN }} # Authentification avec le token Snyk
+
       - name: Run Snyk DAST Scan
-        run: snyk test --all-projects
+        run: snyk test --all-projects # Exécuter l'analyse DAST sur tous les projets
