@@ -29,4 +29,4 @@ jobs:
 
       # Exécuter Snyk DAST
       - name: Run Snyk DAST Scan
-        run: snyk dast test --url=http://localhost:3000
+        run: snyk test --all-projects
