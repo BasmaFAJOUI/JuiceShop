@@ -9,6 +9,7 @@ on:
 jobs:
   security:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -16,13 +17,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "18"
+          node-version: 16
 
-      - name: Install Snyk
-        run: npm install -g snyk
+      - name: Install dependencies
+        run: npm install # Assure que le dossier node_modules est créé.
 
-      - name: Authenticate with Snyk
+      - name: Authenticate Snyk
         run: snyk auth ${{ secrets.SNYK_TOKEN }}
 
-      - name: Run Snyk Test
+      - name: Run Snyk to check for vulnerabilities
         run: snyk test
