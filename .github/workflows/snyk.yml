@@ -19,11 +19,17 @@ jobs:
         with:
           node-version: 16
 
-      - name: Install dependencies
-        run: npm install # Assure que le dossier node_modules est créé.
+      - name: Configure npm registry
+        run: npm config set registry https://registry.npmjs.org/
+
+      - name: Install Snyk CLI
+        run: npm install -g snyk # Installation globale de Snyk
 
       - name: Authenticate Snyk
         run: snyk auth ${{ secrets.SNYK_TOKEN }}
+
+      - name: Install dependencies
+        run: npm install # Installation des dépendances du projet
 
       - name: Run Snyk to check for vulnerabilities
         run: snyk test
