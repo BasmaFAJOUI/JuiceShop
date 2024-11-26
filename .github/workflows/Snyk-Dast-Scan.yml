@@ -1,0 +1,23 @@
+name: Snyk DAST Scan
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  dast:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Authentifier Snyk
+      - name: Authenticate Snyk
+        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+
+      # Exécuter Snyk DAST
+      - name: Run Snyk DAST Scan
+        run: snyk dast test --url=http://localhost:3000
